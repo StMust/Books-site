@@ -1,0 +1,44 @@
+{% load static %}
+{% load main_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'img/background.jpg' %}">
+    <link rel="shortcut icon" href="{% static 'img/background.jpg' %}" type="image/x-icon"/>
+    <title>{{title}}</title>
+</head>
+<body style="background: rgb(12, 11, 11)">
+    <div class="wrapper">
+        {% if user.is_authenticated %}
+            <div class="content">
+                {% block mainmenu %}
+                    <div class="header">
+                            <a href="{% url 'index' %}" class="header_el">Home</a>
+                        {% listcats cat_selected=cat_selected %}
+                    </div>
+                {% endblock mainmenu %}
+                {% block content %}
+                    
+                {% endblock %}
+            </div>
+                <div class="footer_conteiner">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'logout_me' %}" class="logout">Logout</a>
+                    {% endif %}
+                    <div class="footer_element">Author: Azimjon Akimjonov</div>
+                    <div class="footer_element">Email: stmustbk@gmail.com</div>
+                    <div class="footer_element">Thanks for all! (c)</div>
+                </div>
+        {% else %}
+            <div class="content">
+                {% block start %}
+                {% endblock start %}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

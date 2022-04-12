@@ -1,0 +1,15 @@
+{% extends 'main/base.html' %}
+
+{% block start %}
+<p class="header_register">REGISTRATION</p>
+<div class="conteiner_form">
+    <div class="form">
+        <form action="" method="post">
+            
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="send" name="button1" class="button1">
+        </form>
+    </div>
+</div>
+{% endblock start %}

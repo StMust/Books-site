@@ -1,0 +1,12 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+        <div class="photo_full"><img src="{{book.photo.url}}" alt="something" class="img"></div>
+        <div class="text">Title: <p>{{book.title}}</p></div>
+        <hr>
+        <div class="text">Content: <p>{{book.content|linebreaks}}</p></div>
+        <hr>
+        <div class="text">Author: <p>{{book.author}}</p></div>   
+        <div class="text link"><a href="{{book.file.url}}" class="download">DOWNLOAD</a></div>
+        <div class="text link"><a href="{% url 'index' %}">Come back</a></div>
+{% endblock %}

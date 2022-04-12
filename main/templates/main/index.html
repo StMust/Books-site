@@ -1,0 +1,32 @@
+{% extends 'main/base.html' %}
+    {% if user.is_authenticated %}
+        
+        {% block content %}
+        <div class="content_flex">
+            {% for m in model %}
+                <div class="content_conteiner">
+                    <div class="photo"><img src="{{m.photo.url}}" alt="something" class="img"></div>
+                    <div class="text">Title: <p>{{m.title}}</p></div>
+                    <hr>
+                    <div class="text">Content: <p>{{m.content|linebreaks|truncatewords:5}}</p></div>
+                    <hr>
+                    <div class="text">Author: <p>{{m.author}}</p></div>   
+                    <div class="text link"><a href="{{m.file.url}}" class="download">DOWNLOAD</a></div>
+                    <div class="text link"><a href="{{m.get_absolute_url}}">Read more</a></div>
+                </div>
+            {% endfor %}
+        </div>
+        {% endblock %}
+    {% else %}
+        {% block start %}
+            <div class="new_user">
+                <div class="register">
+                    <a href="{% url 'register' %}" class="register_url">REGISTER</a>
+                </div>
+                <div class="stick"></div>
+                <div class="login">
+                    <a href="{% url 'login' %}" class="login_url">LOGIN</a>
+                </div>
+            </div>
+        {% endblock start %}
+    {% endif %}
