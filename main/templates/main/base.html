@@ -16,10 +16,22 @@
         {% if user.is_authenticated %}
             <div class="content">
                 {% block mainmenu %}
-                    <div class="header">
-                            <a href="{% url 'index' %}" class="header_el">Home</a>
-                        {% listcats cat_selected=cat_selected %}
-                    </div>
+                <nav role='navigation'>
+                    <ul>
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li><a href="#">Category</a>
+                            <ul>
+                                {% listcats cat_selected=cat_selected %}
+                            </ul>
+                        </li>
+                        <li><a href="#">Profile</a>
+                            <ul>
+                                <li><a href="#">Own cabinet</a></li>
+                                <li><a href="#">Add new book</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>  
                 {% endblock mainmenu %}
                 {% block content %}
                     

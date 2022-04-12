@@ -1,7 +1,7 @@
 from atexit import register
 from django import template
 
-from main.models import Category
+from main.models import *
 
 register = template.Library()
 
@@ -14,6 +14,9 @@ def menu():
     ]
 
 @register.inclusion_tag('main/list_category.html', name = 'listcats')
-def show_categories(cat_selected=0):
-    cats = Category.objects.all()
+def show_categories(sort=None,cat_selected=0):
+    if not sort:
+        cats = Category.objects.all()
+    else:
+        cats = Category.objects.order_by(sort)
     return {"cats" : cats, "cat_selected" : cat_selected}

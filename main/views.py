@@ -9,19 +9,12 @@ from django.contrib.auth import authenticate, login, logout, get_user_model
 User = get_user_model()
 
 def index(request):
-
     model = Books.objects.all()
     context = {
         'model' : model,
+        'cat_selected' : 0
     }
-
     return render(request, 'main/index.html', context)
-
-def python_books(request):
-    return render(request, 'main/python_books.html')
-
-def c_books(request):
-    return render(request, 'main/c_books.html')
 
 def register(request):
     form = RegisterForm(request.POST or None)
@@ -76,7 +69,6 @@ def show_book(request, book_slug):
 
 def show_category(request, cat_id):
     model = Books.objects.filter(cat_id = cat_id)
-    cats = Category.objects.all()
     if len(model) == 0:
         raise Http404()
     context ={
