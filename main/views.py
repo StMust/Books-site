@@ -1,4 +1,5 @@
 
+from multiprocessing import context
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from .forms import *
@@ -76,3 +77,16 @@ def show_category(request, cat_id):
         'cat_selected' : cat_id,
     }
     return render(request, 'main/index.html', context)
+
+def addbook(request):
+    if request.method == 'POST':
+        form = AddBookForm(request.POST)
+        if form.is_valid:
+            form.save
+            return redirect('index')
+    else:
+        form = AddBookForm()
+    context = {
+        'form' : form
+    }
+    return render(request, 'main/add_book.html', context)

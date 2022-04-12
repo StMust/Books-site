@@ -1,5 +1,8 @@
+from django.core.exceptions import ValidationError
 from django import forms
 from django.contrib.auth import get_user_model
+
+from main.models import Books
 
 User = get_user_model()
 
@@ -56,3 +59,23 @@ class RegisterForm(forms.Form):
         password2 = data.get('password2')
         if password != password2 and len(password) < 8:
             raise forms.ValidationError('This password is too short or they is not same')
+
+
+
+class AddBookForm(forms.ModelForm):
+    def __int__(self,*args,**kwargs):
+        super().__init__(*args,**kwargs)
+        self.fields['cat'].empty_label = 'Категория не выбрана'
+    class Meta:
+        model = Books
+        fields = ['title','slug','content','author','file','photo','cat']
+        Widget = {
+            'title' : forms.TextInput(attrs={'class' : 'form-row username_input'}),
+            'content' : forms.Textarea(attrs={'cols' : 60, "rows" : 10, 'class' : 'form-row username_input'}),
+        }
+    def clean_title(self):
+        title = self.cleaned_data('title')
+        if len(title) > 200:
+            raise ValidationError('Длинна превышает 200 символов!')
+
+        return title
